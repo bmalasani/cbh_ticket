@@ -65,6 +65,17 @@ describe("deterministicPartitionKey", () => {
     expect(trivialKey).toBe(expectedValue);
   });
 
+  it("Should generate same hash when input value have partitionKey  (partitionKey string type with lessthan 256 lenght)", () => {
+    const event = {
+      key: "123131",
+      name: "sdfjsdfsd",
+      partitionKey:
+        "99618d75a8a4844bf0c26ca451ea18d104fb040a881825dedf53a4a716e",
+    };
+    const trivialKey = deterministicPartitionKey(event);
+    expect(trivialKey).toBe(event.partitionKey);
+  });
+
   it("Should generate same hash when input value have partitionKey  (partitionKey not string type)", () => {
     const event = {
       key: "123131",
@@ -80,4 +91,15 @@ describe("deterministicPartitionKey", () => {
       .digest("hex");
     expect(trivialKey).toBe(expectedValue);
   });
+
+  it("Should generate same partitionKey when partitionKey not string type and less than 256 chars", () => {
+    const event = {
+      key: "123131",
+      name: "sdfjsdfsd",
+      partitionKey: 123,
+    };
+    const trivialKey = deterministicPartitionKey(event);
+    expect(trivialKey).toBe(JSON.stringify(event.partitionKey));
+  });
+
 });

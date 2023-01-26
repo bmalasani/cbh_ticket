@@ -9,3 +9,8 @@ You've been asked to refactor the function `deterministicPartitionKey` in [`dpk.
 You will be graded on the exhaustiveness and quality of your unit tests, the depth of your refactor, and the level of insight into your thought process provided by the written explanation.
 
 ## Your Explanation Here
+
+-  This algorithm should always return '0' for all falsy values, so I made the check at starting of the algorithm
+-  If event has property 'partitionKey'  and the stringified value or string length is less than or equal 256 chars return immediately 
+- take stringified data if no partition key
+- return hash value in all other scenarios.
